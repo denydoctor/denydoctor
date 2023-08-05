@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<br><br><br><br>
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">Enregistrer un nouveau client</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="name">Name</label>
+            <input name="name" required type="text" class="form-control" id="name" placeholder="Nom et postnom du client">
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="email">Email</label>
+            <input name="email" required type="email" class="form-control" id="name" placeholder="Email du client">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="telephone">Telephone</label>
+            <input name="telephone" required type="number" class="form-control" id="name" placeholder="Numero de telephone du client">
+        </div>
+    </div>
+
+       <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="sexe">Sexe</label>
+            <select name="sexe" class="form-control" required id="sexe">
+                <option>Choisir le genre...</option>
+                <option value="M">Masculin</option>
+                <option value="M">Feminin</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="age">Age</label>
+            <select name="age" class="form-control" required id="age">
+                <option>Choisir l'age ...</option>
+                <option value="0-15">0-15</option>
+                <option value="0-15">15-25</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="adresse">Adresse</label>
+                <input name="adresse" type="text" required type="text" class="form-control" id="adresse" placeholder="Adresse du client">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="ville">Ville</label>
+            <input type="text" required type="text" class="form-control" id="ville" placeholder="Ville du client">
+         </div>
+         
+    <div class="form-group col-md-6">
+        <label for="code">Code postal</label>
+        <input type="text" required type="text" class="form-control" id="code" placeholder="Code postal du client">
+    </div>
+    </div> 
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+</form>
+
+<br><br><br>
+
+{% endblock content %}
