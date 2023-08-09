@@ -70,7 +70,6 @@ class AjouterFactureView(View):
 
     @transaction.atomic()
     def post(self, request, *args, **kwargs):
-
         print(request.POST)
         items = []
 
@@ -78,8 +77,8 @@ class AjouterFactureView(View):
             client = request.POST.get('client')
             type = request.POST.get('type_facture')
             articles = request.POST.getlist('articles')
-            qtes = request.POST.getlist('qte')
-            unitaires =  request.POST.getlist('unitaire')
+            qtes = request.POST.get('qte')
+            unitaires =  request.POST.get('unitaire')
             total_a = request.POST.getlist('total-a')
             total = request.POST.get('total')
             commentaire = request.POST.get('commentaire')
