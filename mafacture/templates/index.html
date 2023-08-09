@@ -9,7 +9,7 @@
 
 
 <div class="row">
-    <a href="#" class="btn col-md-4 btn-primary">
+    <a href="{% url 'ajouter-facture' %}" class="btn col-md-4 btn-primary">
         Enregistrer une nouvelle facture<span class="badge text-bg-secondary"></span>
     </a>
 
@@ -49,7 +49,7 @@
                 <th scope="row">{{ mafacture.pk }}</th>
                 <td>{{ mafacture.nom.client }}</td>
                 <td>{{ mafacture.facture_date_time }}</td>
-                <td>{{ mafacture.get_total }}</td>
+                <td>{{ facture.get_total }}</td>
                 <td>
                     {% if mafacture.payee %}
                     <img src="{% static 'images/icon-yes.svg' %}" alt="True">

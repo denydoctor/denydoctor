@@ -10,7 +10,7 @@ class Client(models.Model):
         ('M', 'Masculin'),
         ('F', 'Feminin'),
     )
-    nom = models.CharField(max_length=130)
+    nom = models.CharField(max_length=130, null=False)
     email = models.EmailField()
     telephone = models.CharField(max_length=120)
     adresse = models.CharField(max_length=80)
@@ -58,7 +58,7 @@ class Facture(models.Model):
     @property
     def get_total(self):
         articles = self.article_set.all()
-        total = sum(articles.get_total for article in articles)
+        total = sum(article.get_total for article in articles)
 
 class Article(models.Model):
     """
