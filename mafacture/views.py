@@ -3,6 +3,9 @@ from django.views import View
 from .models import *
 from django.contrib import messages
 from django.db import transaction
+from .utils import pagination
+
+
 
 # Create your views here.
 
@@ -10,16 +13,38 @@ class HomeView(View):
     """Main view"""
 
     templates_name = 'index.html'
+    
     factures = Facture.objects.select_related('client', 'save_by').all()
 
     context = {
         'factures': factures
     }
-
     def get(self, request, *args, **kwargs):
+        items = pagination(request, self.factures)
+        self.context['factures'] = items
         return render(request, self.templates_name, self.context)
 
     def post(request, self, *args, **kwargs):
+        
+        #modifier
+        if request.POST.get("id_modified"):
+            paye = request.POST.get("modified")
+
+            try:
+                obj = Facture.objects.get(id = request.POST.get("id_modified"))
+                if paye == 'True':
+                    obj.paye = True
+                else:
+                    obj.paye = False
+                obj.save()
+                messages.success(request, "Change made successfully.")
+
+            except Exception as e:
+                messages.error(request, f"Sorry, the following error has occured{e}.")
+
+
+        items = pagination(request, self.factures)
+        self.context['factures'] = items
         return render(request, self.templates_name, self.context)
 
 class AjouterClientView(View):
@@ -49,10 +74,10 @@ class AjouterClientView(View):
             if created:
                 messages.success(request, "Client enregistré avec succès.")
             else:
-                messages.error(request, "Désolé, Données corrompues, reessayer.")
+                messages.error(request, "Desolé, Données corrompues, réessayer.")
 
         except Exception as e:
-            messages.error(request, f"Désolé, le système a détecté l'anomalie suivante {e}.")
+            messages.error(request, f"Désolé, le système a détecté une erreur {e}.")
             return render(request, self.templates_name)
 
 class AjouterFactureView(View):

@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Client(models.Model):
     """
-    nom: Client model definition
+    Nom: Client model definition
     """
     SEXE_TYPES = (
         ('M', 'Masculin'),
         ('F', 'Feminin'),
     )
-    nom = models.CharField(max_length=130, null=False)
+    nom = models.CharField(max_length=130)
     email = models.EmailField()
     telephone = models.CharField(max_length=120)
     adresse = models.CharField(max_length=80)
@@ -53,12 +53,13 @@ class Facture(models.Model):
         verbose_name_plural = "Factures"
 
     def __str__(self):
-        return f"{self.client.nom} {self.facture_date_time}"
+        return f"{self.client.nom}_{self.facture_date_time}"
 
     @property
     def get_total(self):
         articles = self.article_set.all()
         total = sum(article.get_total for article in articles)
+        return total
 
 class Article(models.Model):
     """
@@ -80,4 +81,5 @@ class Article(models.Model):
     @property
     def get_total(self):
         total = self.quantite * self.prix_unitaire
+        return total
 
